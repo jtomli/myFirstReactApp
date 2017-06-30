@@ -1,8 +1,21 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-
-var dummyData = ["Laundry", "Meal Prep", "Netflix", "Take out the Trash"];
+var dummyData = [
+  {
+    taskText: "Laundry",
+    completed: false
+  }, {
+    taskText: "Meal Prep",
+    completed: true
+  }, {
+    taskText: "Netflix",
+    completed: true
+  }, {
+    taskText: "Take out the Trash",
+    completed: false
+  }
+];
 
 class ToDoApp extends React.Component {
   constructor(props) {
@@ -12,9 +25,9 @@ class ToDoApp extends React.Component {
   render() {
     return (
       <div>
-      <InputLine />
-      <ToDoList />
-    </div>
+        <InputLine/>
+        <ToDoList/>
+      </div>
     )
   }
 }
@@ -26,9 +39,10 @@ class ToDoList extends React.Component {
 
   render() {
     return (
-      <ul> {dummyData.map(task => {
-        return <ToDo task={task}/>
-      })}
+      <ul>
+        {dummyData.map(task => {
+          return <ToDo task={task}/>
+        })}
       </ul>
     )
   }
@@ -40,8 +54,15 @@ class ToDo extends React.Component {
   }
 
   render() {
+    var task = this.props.task.completed
+      ? <strike>
+          {this.props.task.taskText}
+        </strike>
+      : this.props.task.taskText
     return (
-      <li> <button className='btn btn-primary'>X</button>{this.props.task} </li>
+      <li>
+        <button className='btn btn-primary'>X</button>{task}
+      </li>
     )
   }
 }
@@ -63,5 +84,5 @@ class InputLine extends React.Component {
   }
 
 }
-ReactDOM.render(<ToDoApp />,
-   document.getElementById('root'));
+ReactDOM.render(
+  <ToDoApp/>, document.getElementById('root'));
