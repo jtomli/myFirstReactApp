@@ -20,13 +20,22 @@ var dummyData = [
 class ToDoApp extends React.Component {
   constructor(props) {
     super(props)
+    this.state = {
+      todos: []
+    }
+  }
+
+  componentDidMount() {
+    this.setState({
+      todos: dummyData
+    })
   }
 
   render() {
     return (
-      <div>
+      <div className='app-container'>
         <InputLine/>
-        <ToDoList/>
+        <ToDoList todos={this.state.todos}/>
       </div>
     )
   }
@@ -36,7 +45,6 @@ class ToDoList extends React.Component {
   constructor(props) {
     super(props)
   }
-
   render() {
     return (
       <ul>
@@ -61,7 +69,7 @@ class ToDo extends React.Component {
       : this.props.task.taskText
     return (
       <li>
-        <button className='btn btn-primary'>X</button>{task}
+        <button type="button" className='btn btn-outline-success btn-sm'>X</button>{task}
       </li>
     )
   }
@@ -76,9 +84,9 @@ class InputLine extends React.Component {
   }
   render() {
     return (
-      <div>
-        <input type="text" name="newTask" value={this.state.newTask} placeholder="task"/>
-        <input type="submit" name="addToDo" value="Add ToDo"/>
+      <div className='input-container'>
+        <input type="text" name="newTask" value={this.state.newTask} placeholder="New task..."/>
+        <input type="submit" className="btn btn-success" name="addToDo" value="Add ToDo"/>
       </div>
     )
   }
