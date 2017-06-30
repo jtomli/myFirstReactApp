@@ -9772,6 +9772,8 @@ module.exports = __webpack_require__(18);
 "use strict";
 
 
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
 var _react = __webpack_require__(82);
 
 var _react2 = _interopRequireDefault(_react);
@@ -9782,11 +9784,120 @@ var _reactDom2 = _interopRequireDefault(_reactDom);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-_reactDom2.default.render(_react2.default.createElement(
-   'p',
-   null,
-   'React lives!'
-), document.getElementById('root'));
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var dummyData = ["Laundry", "Meal Prep", "Netflix", "Take out the Trash"];
+
+var ToDoApp = function (_Reac$Component) {
+  _inherits(ToDoApp, _Reac$Component);
+
+  function ToDoApp(props) {
+    _classCallCheck(this, ToDoApp);
+
+    return _possibleConstructorReturn(this, (ToDoApp.__proto__ || Object.getPrototypeOf(ToDoApp)).call(this, props));
+  }
+
+  _createClass(ToDoApp, [{
+    key: 'render',
+    value: function render() {
+      return _react2.default.createElement(
+        'div',
+        null,
+        _react2.default.createElement(InputLine, null),
+        _react2.default.createElement('br', null),
+        _react2.default.createElement(ToDoList, null)
+      );
+    }
+  }]);
+
+  return ToDoApp;
+}(Reac.Component);
+
+var ToDoList = function (_React$Component) {
+  _inherits(ToDoList, _React$Component);
+
+  function ToDoList(props) {
+    _classCallCheck(this, ToDoList);
+
+    return _possibleConstructorReturn(this, (ToDoList.__proto__ || Object.getPrototypeOf(ToDoList)).call(this, props));
+  }
+
+  _createClass(ToDoList, [{
+    key: 'render',
+    value: function render() {
+      return _react2.default.createElement(
+        'ul',
+        null,
+        ' ',
+        dummyData.map(function (task) {
+          return _react2.default.createElement(ToDo, { task: task });
+        })
+      );
+    }
+  }]);
+
+  return ToDoList;
+}(_react2.default.Component);
+
+var ToDo = function (_React$Component2) {
+  _inherits(ToDo, _React$Component2);
+
+  function ToDo(props) {
+    _classCallCheck(this, ToDo);
+
+    return _possibleConstructorReturn(this, (ToDo.__proto__ || Object.getPrototypeOf(ToDo)).call(this, props));
+  }
+
+  _createClass(ToDo, [{
+    key: 'render',
+    value: function render() {
+      return _react2.default.createElement(
+        'li',
+        null,
+        ' ',
+        _react2.default.createElement(
+          'button',
+          { className: 'btn btn-primary' },
+          'X'
+        ),
+        this.props.task,
+        ' '
+      );
+    }
+  }]);
+
+  return ToDo;
+}(_react2.default.Component);
+
+var InputLine = function (_React$Component3) {
+  _inherits(InputLine, _React$Component3);
+
+  function InputLine(props) {
+    _classCallCheck(this, InputLine);
+
+    return _possibleConstructorReturn(this, (InputLine.__proto__ || Object.getPrototypeOf(InputLine)).call(this, props));
+  }
+
+  _createClass(InputLine, [{
+    key: 'render',
+    value: function render() {
+      return _react2.default.createElement(
+        'div',
+        null,
+        _react2.default.createElement('input', { type: 'text', name: 'newTask', value: this.state.newTask, placeholder: 'task' }),
+        _react2.default.createElement('input', { type: 'submit', name: 'addToDo', value: 'Add ToDo' })
+      );
+    }
+  }]);
+
+  return InputLine;
+}(_react2.default.Component);
+
+_reactDom2.default.render(_react2.default.createElement(ToDoApp, null), document.getElementById('root'));
 
 /***/ }),
 /* 84 */
