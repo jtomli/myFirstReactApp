@@ -5,7 +5,9 @@ class ToDo extends React.Component {
     super(props)
   }
 
+
   render() {
+    //console.log(this.props.)
     var task = this.props.task.completed
       ? <strike>
           {this.props.task.taskText}
@@ -13,7 +15,8 @@ class ToDo extends React.Component {
       : this.props.task.taskText
     return (
       <li>
-        <button type="button" className='btn btn-outline-success btn-sm'>X</button>{task}
+        <button onClick={() => this.props.xClick(this.props.index)} type="button" className='btn btn-outline-success btn-sm'>X</button>
+        <span onClick={() => this.props.toggleTask(this.props.index)}>{task}</span>
       </li>
     )
   }
