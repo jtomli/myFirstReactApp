@@ -10471,19 +10471,6 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var dummyData = [{
-  taskText: "Laundry",
-  completed: false
-}, {
-  taskText: "Meal Prep",
-  completed: true
-}, {
-  taskText: "Netflix",
-  completed: true
-}, {
-  taskText: "Take out the Trash",
-  completed: false
-}];
 var dbUrl = 'http://localhost:3000/db';
 
 var ToDoApp = function (_React$Component) {
@@ -10503,55 +10490,64 @@ var ToDoApp = function (_React$Component) {
   _createClass(ToDoApp, [{
     key: 'componentDidMount',
     value: function componentDidMount() {
-      this.setState({
-        todos: dummyData
+      var _this2 = this;
+
+      _axios2.default.get(dbUrl + '/all').then(function (response) {
+        _this2.setState({ todos: response.data });
+      }).catch(function (error) {
+        console.log("error", error);
       });
     }
   }, {
     key: 'addToDo',
     value: function addToDo(task) {
-      console.log("here");
-      console.log('task', task);
-      _axios2.default.post(dbUrl + '/add', { task: task }).then(function (response) {
-        console.log('success', response);
+      var _this3 = this;
+
+      _axios2.default.post(dbUrl + '/add', { taskText: task }).then(function (response) {
+        _this3.setState({
+          todos: _this3.state.todos.concat(response.data)
+        });
       }).catch(function (error) {
         console.log("error", error);
       });
-      // dummyData.push({taskText: task, completed: false});
-      // this.setState({todos : dummyData});
     }
   }, {
     key: 'removeToDo',
-    value: function removeToDo(index) {
-      dummyData.splice(index, 1);
-      this.setState({ todos: dummyData });
+    value: function removeToDo(id) {
+      var _this4 = this;
+
+      _axios2.default.post(dbUrl + '/remove', { id: id }).then(function (response) {
+        _this4.setState({ todos: response.data });
+      }).catch(function (error) {
+        console.log("error", error);
+      });
     }
   }, {
     key: 'toggleTask',
-    value: function toggleTask(index) {
-      var task = dummyData[index];
-      if (task.completed) {
-        task.completed = false;
-      } else {
-        task.completed = true;
-      }
-      this.setState({ todos: dummyData });
+    value: function toggleTask(id) {
+      var _this5 = this;
+
+      _axios2.default.post(dbUrl + '/toggle', { id: id }).then(function (response) {
+        _this5.setState({ todos: response.data });
+      }).catch(function (error) {
+        console.log("error", error);
+      });
     }
   }, {
     key: 'render',
     value: function render() {
-      var _this2 = this;
+      var _this6 = this;
 
       return _react2.default.createElement(
         'div',
         { className: 'app-container' },
         _react2.default.createElement(_InputLine2.default, { submit: function submit(task) {
-            return _this2.addToDo(task);
+            return _this6.addToDo(task);
           } }),
-        _react2.default.createElement(_ToDoList2.default, { todos: this.state.todos, todoXClick: function todoXClick(index) {
-            return _this2.removeToDo(index);
-          }, toggleTask: function toggleTask(index) {
-            return _this2.toggleTask(index);
+        _react2.default.createElement(_ToDoList2.default, { todos: this.state.todos, todoXClick: function todoXClick(id) {
+            return _this6.removeToDo(id);
+          }, toggleTask: function toggleTask(id) {
+            return _this6.toggleTask(id);
           } })
       );
     }
@@ -11554,7 +11550,6 @@ var ToDo = function (_React$Component) {
     value: function render() {
       var _this2 = this;
 
-      //console.log(this.props.)
       var task = this.props.task.completed ? _react2.default.createElement(
         'strike',
         null,
@@ -11566,14 +11561,14 @@ var ToDo = function (_React$Component) {
         _react2.default.createElement(
           'button',
           { onClick: function onClick() {
-              return _this2.props.xClick(_this2.props.index);
+              return _this2.props.xClick(_this2.props.dbId);
             }, type: 'button', className: 'btn btn-outline-success btn-sm' },
           'X'
         ),
         _react2.default.createElement(
           'span',
           { onClick: function onClick() {
-              return _this2.props.toggleTask(_this2.props.index);
+              return _this2.props.toggleTask(_this2.props.dbId);
             } },
           task
         )
@@ -11632,11 +11627,11 @@ var ToDoList = function (_React$Component) {
       return _react2.default.createElement(
         'ul',
         null,
-        this.props.todos.map(function (task, index) {
-          return _react2.default.createElement(_ToDo2.default, { index: index, toggleTask: function toggleTask(index) {
-              return _this2.props.toggleTask(index);
-            }, task: task, xClick: function xClick(index) {
-              return _this2.props.todoXClick(index);
+        this.props.todos.map(function (task) {
+          return _react2.default.createElement(_ToDo2.default, { key: task._id, dbId: task._id, toggleTask: function toggleTask(id) {
+              return _this2.props.toggleTask(id);
+            }, task: task, xClick: function xClick(id) {
+              return _this2.props.todoXClick(id);
             } });
         })
       );
