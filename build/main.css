@@ -1,5 +1,6 @@
 .app-container {
   border-style: double;
+  width: 300px;
 }
 
 .input-container {
@@ -10,4 +11,11 @@
 
 .btn {
   margin-right: 10px;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center
 }
