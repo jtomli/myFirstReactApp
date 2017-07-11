@@ -14,7 +14,7 @@ And mark tasks as completed by simply clicking on the text to cross it out.
 ![](img/complete.png)
 
 ## How to run
-This app is configured with webpack and can be run with Node.js with the command "npm run server", after the command "npm install".
+This app is configured with webpack and can be run locally with Node.js with the command "npm run server", after the command "npm install".
 
 ### Future improvements
 - Style! The app has very simple styling, as it is a very simple app.
