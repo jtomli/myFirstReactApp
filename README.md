@@ -19,3 +19,8 @@ This app is configured with webpack and can be run locally with Node.js with the
 ### Future improvements
 - Style! The app has very simple styling, as it is a very simple app.
 - Categorization of tasks in separate lists for better organization
+
+## Technologies
+- React
+- Bootstrap
+- Node.js
